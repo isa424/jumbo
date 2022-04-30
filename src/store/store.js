@@ -10,6 +10,19 @@ const store = new Vuex.Store({
     cities: [],
     stores: []
   },
+  getters: {
+    // Get stores filtered by a city
+    getStores: (state) => (city) => {
+      if (!city) {
+        return state.stores;
+      }
+
+      // Filter by city if provided
+      return state.stores.filter((s) => s.city === city);
+    },
+    // Get a store by uuid
+    getStoreById: (state) => (id) => state.stores.find((s) => s.uuid === id)
+  },
   mutations: {
     [SET_CITIES]: (state, cities) => (state.cities = cities),
     [SET_STORES]: (state, stores) => (state.stores = stores)

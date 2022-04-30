@@ -12,23 +12,22 @@
 </template>
 
 <script>
-import axios from "axios";
-import { SET_CITIES, SET_STORES } from "../store/mutation-types";
-import { mapActions, mapMutations } from "vuex";
+import { mapActions, mapState } from "vuex";
 
 export default {
   data() {
     return {
+      city: "",
       show: "",
-      cities: [],
-      stores: [],
     };
   },
+  computed: {
+    ...mapState(["cities"]),
+    stores() {
+      return this.$store.getters.getStores(this.city);
+    },
+  },
   methods: {
-    ...mapMutations({
-      setCities: SET_CITIES,
-      setStores: SET_STORES,
-    }),
     ...mapActions({
       fetchData: "fetchData",
     }),
