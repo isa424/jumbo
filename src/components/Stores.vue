@@ -12,16 +12,35 @@
 </template>
 
 <script>
+import axios from "axios";
+
 export default {
   data() {
     return {
       show: "",
-      cities: ["Amsterdam", "Veghel"],
-      stores: [
-        { uuid: 123, addressName: "Store 1" },
-        { uuid: 456, addressName: "Store 2" },
-      ],
+      cities: [],
+      stores: [],
     };
+  },
+  mounted() {
+    const url =
+      "https://api.jsonstorage.net/v1/json/00000000-0000-0000-0000-000000000000/c4357a15-46e2-4542-8e93-6aa6a0c33c1e";
+
+    axios
+      .get(url)
+      .then((response) => {
+        // Get unique city names
+        this.cities = response.data
+          .map((d) => d.city)
+          .filter((c, i, cities) => cities.indexOf(c) === i);
+
+        // Get store addresses
+        this.stores = response.data.map((d) => ({
+          uuid: d.uuid,
+          addressName: d.addressName,
+        }));
+      })
+      .catch((err) => console.error(err));
   },
 };
 </script>
