@@ -13,6 +13,8 @@
 
 <script>
 import axios from "axios";
+import { SET_CITIES, SET_STORES } from "../store/mutation-types";
+import { mapActions, mapMutations } from "vuex";
 
 export default {
   data() {
@@ -22,25 +24,17 @@ export default {
       stores: [],
     };
   },
+  methods: {
+    ...mapMutations({
+      setCities: SET_CITIES,
+      setStores: SET_STORES,
+    }),
+    ...mapActions({
+      fetchData: "fetchData",
+    }),
+  },
   mounted() {
-    const url =
-      "https://api.jsonstorage.net/v1/json/00000000-0000-0000-0000-000000000000/c4357a15-46e2-4542-8e93-6aa6a0c33c1e";
-
-    axios
-      .get(url)
-      .then((response) => {
-        // Get unique city names
-        this.cities = response.data
-          .map((d) => d.city)
-          .filter((c, i, cities) => cities.indexOf(c) === i);
-
-        // Get store addresses
-        this.stores = response.data.map((d) => ({
-          uuid: d.uuid,
-          addressName: d.addressName,
-        }));
-      })
-      .catch((err) => console.error(err));
+    this.fetchData();
   },
 };
 </script>
