@@ -1,7 +1,7 @@
 <template>
   <div>
-    <button @click.prevent="show = 'stores'">Show stores</button>
-    <button @click.prevent="show = 'cities'">Show cities</button>
+    <button @click.prevent="setShow('stores')">Show stores</button>
+    <button @click.prevent="setShow('cities')">Show cities</button>
     <ul v-if="show === 'stores'">
       <li v-for="store in stores" :key="store.uuid">{{ store.addressName }}</li>
     </ul>
@@ -12,29 +12,8 @@
 </template>
 
 <script>
-import { mapActions, mapState } from "vuex";
-
 export default {
-  data() {
-    return {
-      city: "",
-      show: "",
-    };
-  },
-  computed: {
-    ...mapState(["cities"]),
-    stores() {
-      return this.$store.getters.getStores(this.city);
-    },
-  },
-  methods: {
-    ...mapActions({
-      fetchData: "fetchData",
-    }),
-  },
-  mounted() {
-    this.fetchData();
-  },
+  props: ["stores", "cities", "show", "city", "setShow", "setCity"],
 };
 </script>
 
