@@ -8,10 +8,10 @@ Vue.use(Vuex);
 
 const store = new Vuex.Store({
   state: {
-    city: "",
+    city: "", // search
     cities: [],
     stores: [],
-    show: ""
+    show: "stores"
   },
   getters,
   mutations,

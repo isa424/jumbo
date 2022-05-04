@@ -1,4 +1,5 @@
 # Jumbo Vue technical assignment
+### by [Isa Ishangulyyev](https://www.linkedin.com/in/isa-ishangulyyev)
 
 Requirements for this assignment:
 
